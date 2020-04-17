@@ -2,7 +2,7 @@ from setuptools import setup
 
 setup(
     name='jarvis',
-    version='0.0.1',
+    version='0.0.2',
     description='Utils for general tasks.',
     url='git@github.com:levopeti/utils.git',
     author='Levente Peto',
