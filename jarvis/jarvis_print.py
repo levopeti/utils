@@ -11,14 +11,14 @@ def jprint(input_dict, only_keys=False, type_for_print=None, recursive_dict=True
             for k, v in input_dict.items():
                 if isinstance(v, dict) and recursive_dict:
                     print(prefix + str(k) + str(type(v)) + ':')
-                    print_dict(v, only_keys, type_for_print, recursive_dict, recursive_list, prefix=prefix + '\t')
+                    jprint(v, only_keys, type_for_print, recursive_dict, recursive_list, prefix=prefix + '\t')
                 else:
                     print(prefix + str(k) + str(type(v)))
         else:
             for k, v in input_dict.items():
                 if isinstance(v, dict) and recursive_dict:
                     print(prefix + str(k) + str(type(v)) + ':')
-                    print_dict(v, only_keys, type_for_print, recursive_dict, recursive_list, prefix=prefix + '\t')
+                    jprint(v, only_keys, type_for_print, recursive_dict, recursive_list, prefix=prefix + '\t')
                 elif isinstance(v, np.ndarray):
                     if type(v) in type_for_print:
                         print(prefix + "{}: {}, {}, {}".format(k, type(v), v.shape, v))
@@ -28,7 +28,7 @@ def jprint(input_dict, only_keys=False, type_for_print=None, recursive_dict=True
                     print(prefix + str(k) + str(type(v)) + ':')
                     for list_v in v:
                         if isinstance(list_v, dict):
-                            print_dict(list_v, only_keys, type_for_print, recursive_dict, recursive_list,
+                            jprint(list_v, only_keys, type_for_print, recursive_dict, recursive_list,
                                        prefix=prefix + '\t')
                         else:
                             if type(list_v) in type_for_print:
@@ -42,7 +42,7 @@ def jprint(input_dict, only_keys=False, type_for_print=None, recursive_dict=True
                         print(prefix + "{}: {}".format(k, type(v)))
     elif isinstance(input_dict, list):
         for item in input_dict:
-            print_dict(item, only_keys, type_for_print, recursive_dict, recursive_list, prefix=prefix + '\t')
+            jprint(item, only_keys, type_for_print, recursive_dict, recursive_list, prefix=prefix + '\t')
             print("------------------")
     else:
         print(prefix + '\t' + str(type(input_dict)))
