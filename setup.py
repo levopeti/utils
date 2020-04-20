@@ -1,13 +1,13 @@
 from setuptools import setup
 
 setup(
-    name='jarvis',
-    version='0.0.3',
+    name='jarvix',
+    version='0.0.4',
     description='Utils for general tasks.',
     url='git@github.com:levopeti/utils.git',
     author='Levente Peto',
     author_email='leviskocka@gmail.com',
     license='unlicense',
-    packages=['jarvis'],
+    packages=['jarvix'],
     zip_safe=False
 )
