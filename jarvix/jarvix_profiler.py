@@ -10,6 +10,8 @@ from termcolor import colored
 from multiprocessing.managers import BaseManager
 
 r = lambda: random.randint(0, 255)
+profiler = None
+active = False
 
 
 class FunctionTimeBlock(object):
@@ -182,15 +184,18 @@ class Profiler(object):
 
     def __del__(self):
         self.end_time = time.time()
-        self.elapsed_time = self.end_time - self.start_time
+        if self.start_time is None:
+            self.elapsed_time = None
+        else:
+            self.elapsed_time = self.end_time - self.start_time
 
 
-BaseManager.register('Profiler', Profiler)
-manager = BaseManager()
-manager.start()
-profiler = manager.Profiler()
-
-active = False
+def make_profiler():
+    global profiler
+    BaseManager.register('Profiler', Profiler)
+    manager = BaseManager()
+    manager.start()
+    profiler = manager.Profiler()
 
 
 def profiler_add(func):
@@ -212,6 +217,7 @@ def profiler_add(func):
 
 def start_profiler(main_pid):
     global active
+    make_profiler()
     profiler.start(main_pid)
     active = True
 

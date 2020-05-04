@@ -5,6 +5,7 @@ import torch
 import functools
 import time
 
+
 def print_dict(input_dict, only_keys=False, type_for_print=None, recursive_dict=True, recursive_list=True, prefix=''):
     type_for_print = type_for_print or [int, float, str, list, bool, np.bool_, np.uint8]
     print(type(input_dict))
@@ -55,14 +56,16 @@ def print_dict(input_dict, only_keys=False, type_for_print=None, recursive_dict=
 
 def timer(func):
     """Print the runtime of the decorated function"""
+
     @functools.wraps(func)
     def wrapper_timer(*args, **kwargs):
-        start_time = time.perf_counter()    # 1
+        start_time = time.perf_counter()  # 1
         value = func(*args, **kwargs)
-        end_time = time.perf_counter()      # 2
-        run_time = end_time - start_time    # 3
+        end_time = time.perf_counter()  # 2
+        run_time = end_time - start_time  # 3
         print(f"Finished {func.__name__!r} in {run_time:.4f} secs")
         return value
+
     return wrapper_timer
 
 
@@ -74,15 +77,17 @@ def make_index_chunks(indexes, pool_size):
 
 def new_thread(func):
     """Start a new thread for the function"""
+
     @functools.wraps(func)
     def wrapper_timer(*args, **kwargs):
         x = threading.Thread(target=func, args=args, kwargs=kwargs)
         x.start()
+
     return wrapper_timer
 
 
-data = {"1_1": {"1_1_1": "vege", "1_1_2": "nana"}, "1_2": "semmi", "1_3": {"1_3_1": {"1_3_1_1": "juhu", "1_3_1_2": "wao"}, "1_3_2": "a-a"}}
-
+data = {"1_1": {"1_1_1": "vege", "1_1_2": "nana"}, "1_2": "semmi",
+        "1_3": {"1_3_1": {"1_3_1_1": "juhu", "1_3_1_2": "wao"}, "1_3_2": "a-a"}}
 
 if __name__ == "__main__":
-	print_dict(data, only_keys=False, type_for_print=[str, float, int, list], recursive_dict=True)
+    print_dict(data, only_keys=False, type_for_print=[str, float, int, list], recursive_dict=True)

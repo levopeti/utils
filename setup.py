@@ -2,7 +2,7 @@ from setuptools import setup
 
 setup(
     name='jarvix',
-    version='0.0.4',
+    version='0.0.5',
     description='Utils for general tasks.',
     url='git@github.com:levopeti/utils.git',
     author='Levente Peto',
